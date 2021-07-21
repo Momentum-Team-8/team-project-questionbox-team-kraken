@@ -82,6 +82,7 @@ Pygments = "==2.9.0"
 Send2Trash = "==1.5.0"
 psycopg2-binary = "*"
 django-on-heroku = "*"
+django-environ = "*"
 
 [dev-packages]
 
