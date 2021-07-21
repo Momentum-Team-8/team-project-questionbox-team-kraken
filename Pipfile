@@ -80,6 +80,8 @@ Jinja2 = "==3.0.1"
 MarkupSafe = "==2.0.1"
 Pygments = "==2.9.0"
 Send2Trash = "==1.5.0"
+psycopg2-binary = "*"
+django-on-heroku = "*"
 
 [dev-packages]
 
