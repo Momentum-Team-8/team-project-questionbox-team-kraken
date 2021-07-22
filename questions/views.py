@@ -14,10 +14,19 @@ class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class AnswerList(generics.ListCreateAPIView):
-    Questions = Answer.objects.all()
+    queryset = Answer.objects.all()
 
 
 
 class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Answer.objects.all()
-    
+
+
+
+class TagList(generics.ListCreateAPIView):
+    queryset = Tag.objects.all()
+
+
+
+class TagDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Tag.objects.all()
