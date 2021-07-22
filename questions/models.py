@@ -11,28 +11,12 @@ class User(AbstractUser):
         return self.username
 
 
-class Questions(models.Model):
+class Question(models.Model):
     question = models.TextField()
     user = models.ForeignKey(User, on_delete=CASCADE, related_name='question_user')
     created_at = models.DateField(auto_now_add=True)
-    favorited_by = models.ManyToManyField(User)
-
-    def get_tag_names(self):
-        tag_names = []
-        for tag in self.tags.all():
-            tag_names.append(tag.tag)
-
-        return " ".join(tag_names)
-
-    def set_tag_names(self, tag_names):
-        tag_names = tag_names.split()
-        tags = []
-        for tag_name in tag_names:
-            tag = Tag.objects.filter(tag=tag_name).first()
-            if tag is None:
-                tag = Tag.objects.create(tag=tag_name)
-            tags.append(tag)
-        self.tags.set(tags)
+    favorited_by = models.ManyToManyField(User, related_name='favorited', null=True, blank=True)
+    tag = models.ManyToManyField('Tag', related_name='questions', null=True, blank=True)
 
 
 class Answer(models.Model):
@@ -41,7 +25,7 @@ class Answer(models.Model):
     created_at = models.DateField(auto_now_add=True)
     accepted = models.BooleanField()
     favorited = models.BooleanField()
-    question = models.ForeignKey(Questions, on_delete=CASCADE)
+    question = models.ForeignKey(Question, on_delete=CASCADE)
     
 
 class Tag(models.Model):
