@@ -1,8 +1,5 @@
 from django.shortcuts import render
 from rest_framework import generics
-<<<<<<< HEAD
-from .models import Question, Answer, Tag
-=======
 from .models import Question, Answer, Tag, User
 from library.serializers import QuestionSerializer, AnswerSerializer, UserSerializer, TagSerializer
 from rest_framework import generics, status
@@ -11,15 +8,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 import io
->>>>>>> d20a038a4656a16db39c196f63d86dd052e9b824
 # from .serializers import 
 
 # Create your views here.
 
 class QuestionList(generics.ListCreateAPIView):
     queryset = Question.objects.all()
-<<<<<<< HEAD
-=======
     serializer_class = QuestionSerializer
     permission_classes = [User]
 
@@ -27,17 +21,13 @@ class QuestionList(generics.ListCreateAPIView):
         queryset = self.get_queryset()
         serializer = Question.Serializer(queryset, many=True)
         return Response(serializer.data)
->>>>>>> d20a038a4656a16db39c196f63d86dd052e9b824
 
 
 class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
-<<<<<<< HEAD
-=======
 
     def get_question(self, pk):
         return Question.objects.get(pk=pk)
->>>>>>> d20a038a4656a16db39c196f63d86dd052e9b824
 
     def put(self, request, pk, format=None):
         question = self.get_object(pk)
