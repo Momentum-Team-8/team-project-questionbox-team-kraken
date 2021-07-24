@@ -1,15 +1,15 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Questions, Answer, Tag
+from .models import Question, Answer, Tag
 # from .serializers import 
 
 # Create your views here.
 class QuestionList(generics.ListCreateAPIView):
-    queryset = Questions.objects.all()
+    queryset = Question.objects.all()
 
 
 class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Questions.objects.all()
+    queryset = Question.objects.all()
 
 
 
