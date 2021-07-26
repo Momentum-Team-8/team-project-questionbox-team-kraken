@@ -31,7 +31,7 @@ urlpatterns = [
     path('answers/', views.answerCreate, name='answer-create'),
     path('tags/', views.tagList, name='tag-list'),
     path('tags/<int:pk>/', views.tagDetail, name='tag-detail'),
-    path('tags/', views.tagsCreate, name='tag-create')
+    path('tags/', views.tagCreate, name='tag-create')
 
 
 ]
