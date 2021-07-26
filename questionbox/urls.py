@@ -23,15 +23,15 @@ urlpatterns = [
     path('api-auth/', include ('rest_framework.urls')),
     path('questions/', views.questionList, name='question-list'),
     path('questions/<int:pk>/', views.questionDetail, name='question-detail'),
-    path('questions/', views.questionCreate, name='question-create'),
+    path('questions/create/', views.questionCreate, name='question-create'),
     path('questions/<int:pk>/', views.questionEdit, name='question-edit'),
     path('questions/<int:pk>/', views.questionDelete, name='question-delete'),
     path('answers/', views.answerList, name='answer-list'),
     path('answers/<int:pk>/', views.answerDetail, name='answer-detail'),
-    path('answers/', views.answerCreate, name='answer-create'),
+    path('answers/create/', views.answerCreate, name='answer-create'),
     path('tags/', views.tagList, name='tag-list'),
     path('tags/<int:pk>/', views.tagDetail, name='tag-detail'),
-    path('tags/', views.tagCreate, name='tag-create')
+    path('tags/create/', views.tagCreate, name='tag-create')
 
 
 ]
