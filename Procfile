@@ -1,2 +1,2 @@
-web: gunicorn questions.wsgi
+web: gunicorn questionbox.wsgi
 release: python manage.py migrate
