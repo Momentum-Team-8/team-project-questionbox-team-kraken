@@ -18,85 +18,96 @@ def apiOverview(request):
     api_urls = {
         'question-list':'/questions/',
         'question-detail':'/questions/<int:pk/',
+        'question-create':'/questions/',
+        'question-edit':'/questions/',
+        'question-delete':'/questions',
         'answer-list':'/answers/',
         'answer-detail':'/answers/<int:pk>/',
+        'answer-create':'/answers/',
         'tag-list':'/tags/',
         'tag-detail':'/tags/<int:pk>/',
+        'tag-create':'/tags/<int:pk>/'
     }
 
-class QuestionList(generics.ListCreateAPIView):
-    queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
-    permission_classes = [User]
-
-    def list(self, request):
-        queryset = self.get_queryset()
-        serializer = Question.Serializer(queryset, many=True)
-        return Response(serializer.data)
+    return Response("API BASE POINT", safe=False)
 
 
-class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Question.objects.all()
+@api_view(['GET'])
+def questionList(request):
+    questions = Question.objects.all()
+    serializer = QuestionSerializer(questions, many=True)
+    return Response(serializer.data)
 
-    def get_question(self, pk):
-        return Question.objects.get(pk=pk)
+@api_view(['GET'])
+def questionDetail(request, pk):
+    questions = Question.objects.get(id=pk)
+    serializer = QuestionSerializer(questions, many=False)
+    return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        question = self.get_object(pk)
-        serializer = QuestionSerializer(question, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-
-    def delete(self, request, pk, format=None):
-        question = self.get_object(pk)
-        question.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
+@api_view(['POST'])
+def questionCreate(request):
+    serializer = QuestionSerializer(data=request.data)
     
-class AnswerList(generics.ListCreateAPIView):
-    queryset = Answer.objects.all()
-    serializer_class =  AnswerSerializer
+    if serializer.is_valid():
+        serializer.save()
+    
+    return Response(serializer.data)
 
-    def list(self, request):
-        queryset = self.get_queryset()
-        serializer = AnswerSerializer(queryset, many=True)
-        return Response(serializer.data)
+@api_view(['POST'])
+def questionEdit(request, pk):
+    question = Question.objects.get(id=pk)
+    serializer = QuestionSerializer(instance=question, data=request.data)
 
-class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Answer.objects.all()
+    if serializer.is_valid():
+        serializer.save()
 
-    def get_answer(self, pk):
-        return Answer.objects.get(pk=pk)
+    return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        book = self.get_object(pk)
-        serializer = AnswerSerializer(book, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-            
+@api_view(['DELETE'])
+def questionDelete(request, pk):
+    question = Question.objects.get(id=pk)
+    question.delete()
 
+    return Response('Your question has been deleted.')
 
+@api_view(['GET'])
+def answerList(request):
+    answers = Answer.objects.all()
+    serializer = AnswerSerializer(answers, many=True)
+    return Response(serializer.data)
 
-class TagList(generics.ListCreateAPIView):
-    queryset = Tag.objects.all()
-    serializer_class = TagSerializer
+@api_view(['GET'])
+def answerDetail(request, pk):
+    answers = Answer.objects.get(id=pk)
+    serializer = AnswerSerializer(answers, many=False)
+    return Response(serializer.data)
 
-    def list(self, request):
-        queryset = self.get_queryset()
-        serializer = TagSerializer(queryset, many=True)
-        return Response(serializer.data)
+@api_view(['POST'])
+def answerCreate(request):
+    serializer = AnswerSerializer(data=request.data)
+    
+    if serializer.is_valid():
+        serializer.save()
+    
+    return Response(serializer.data)
 
+@api_view(['GET'])
+def tagList(request):
+    tags = Tag.objects.all()
+    serializer = TagSerializer(tags, many=True)
+    return Response(serializer.data)
 
+@api_view(['GET'])
+def tagDetail(request, pk):
+    tags = Tag.objects.get(id=pk)
+    serializer = TagSerializer(tags, many=False)
+    return Response(serializer.data)
 
-class TagDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Tag.objects.all()
-    serializer_class = TagSerializer
-
-    def put(self, request, pk, format=None):
-        tag = self.get_object(pk)
-        serializer = TagSerializer(tag, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+@api_view(['POST'])
+def tagCreate(request):
+    serializer = TagSerializer(data=request.data)
+    
+    if serializer.is_valid():
+        serializer.save()
+    
+    return Response(serializer.data)
