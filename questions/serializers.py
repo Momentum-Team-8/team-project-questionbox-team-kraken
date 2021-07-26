@@ -27,27 +27,15 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ['question', 'user', 'created_at', 'favorited_by', 'tag']
         read_only_fields = ['user', 'created_at']
 
-    def create(self, validate_data):
-        return Question.objects.create(validated_data)
-
-    def update(self, instance, validated_data):
-        instance.question = validated_data.get('question', instance.question)
-        instance.user = validated_data.get('user', instance.user)
-        instance.created_at = validated_data.get('created_at', instance.created_at)
-        instance.favorited_by = validated_data.get('favorited_by', instance.favorited_by)
-        instance.tag = validated_data.get('tag', instance.tag)
-        instance.save()
-        return instance
-
 class AnswerSerializer(serializers.ModelSerializer):
-    model = Answer
-    fields = ['answer', 'user', 'created_at', 'accepted', 'favorited']
-    read_only_fields = ['user', 'created_at', 'accepted']
+    class Meta:
+        model = Answer
+        fields = ['answer', 'user', 'created_at', 'accepted', 'favorited']
+        read_only_fields = ['user', 'created_at', 'accepted']
 
-    def create(self, validated_data):
-        return Answer.objects.create(validated_data)
 
 class TagSerializer(serializers.ModelSerializer):
-    model = Tag
-    fields = ['tag']
-    read_only_fields = ['tag']
+    class Meta:
+        model = Tag
+        fields = ['tag']
+        read_only_fields = ['tag']
