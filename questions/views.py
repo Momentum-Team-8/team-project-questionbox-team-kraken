@@ -1,36 +1,10 @@
-from django.shortcuts import render
-from rest_framework import generics
 from .models import Question, Answer, Tag, User
 from .serializers import QuestionSerializer, AnswerSerializer, UserSerializer, TagSerializer
-from rest_framework import generics, status
+from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
-import io
 # from .serializers import 
-
-# Create your views here.
-
-@api_view(['GET'])
-def apiOverview(request):
-    api_urls = {
-        'question-list':'/questions/',
-        'question-detail':'/questions/<int:pk/',
-        'question-create':'/questions/',
-        'question-edit':'/questions/',
-        'question-delete':'/questions',
-        'answer-list':'/answers/',
-        'answer-detail':'/answers/<int:pk>/',
-        'answer-create':'/answers/',
-        'tag-list':'/tags/',
-        'tag-detail':'/tags/<int:pk>/',
-        'tag-create':'/tags/<int:pk>/'
-    }
-
-    return Response("API BASE POINT", safe=False)
-
 
 @api_view(['GET'])
 def questionList(request):
