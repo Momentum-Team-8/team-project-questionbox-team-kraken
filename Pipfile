@@ -11,6 +11,7 @@ django-on-heroku = "*"
 django-environ = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
+djoser = "*"
 
 [dev-packages]
 
