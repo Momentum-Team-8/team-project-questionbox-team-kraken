@@ -37,7 +37,8 @@ ALLOWED_HOSTS = [".herokuapp.com"]
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticatedOrReadOnly"
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+        "rest_framework.authentication.TokenAuthentication",
     ]
 }
 
@@ -53,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'questions',
     
     
