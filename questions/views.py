@@ -1,12 +1,25 @@
 from .models import Question, Answer, Tag, User
 from .serializers import QuestionSerializer, AnswerSerializer, UserSerializer, TagSerializer
-from rest_framework import generics
+from rest_framework import status
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from questions import serializers
 # from .serializers import 
+
+@api_view(['POST'])
+def createAuth(request):
+    serialized = UserSerializer(data=request.DATA)
+    if serialized.is_valid():
+        User.objects.create_user(
+            serialized.init_data['email'],
+            serialized.init_data['username'],
+            serialized.init_data['password']
+        )
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def questionList(request):
