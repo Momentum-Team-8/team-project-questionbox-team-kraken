@@ -4,6 +4,8 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+
+from questions import serializers
 # from .serializers import 
 
 @api_view(['GET'])
@@ -19,11 +21,11 @@ def questionDetail(request, pk):
     return Response(serializer.data)
 
 @api_view(['POST'])
-def questionCreate(request):
-    serializer = QuestionSerializer()
+def questionCreate(request):#save logged user in request
+    serializer = QuestionSerializer(data=request.data)
     
     if serializer.is_valid():
-        serializer.save()
+        serializer.save(user=request.user)
     
     return Response(serializer.data)
 
@@ -61,7 +63,7 @@ def answerCreate(request):
     serializer = AnswerSerializer(data=request.data)
     
     if serializer.is_valid():
-        serializer.save()
+        serializer.save(user=request.user)
     
     return Response(serializer.data)
 
