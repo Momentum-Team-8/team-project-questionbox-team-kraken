@@ -22,7 +22,6 @@ urlpatterns = [
     path('api-auth/', include ('rest_framework.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
-    path('users/register', views.createAuth, name='create-user'),
     path('questions/', views.questionList, name='question-list'),
     path('questions/<int:pk>/', views.questionDetail, name='question-detail'),
     path('questions/create/', views.questionCreate, name='question-create'),
