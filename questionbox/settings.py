@@ -36,9 +36,12 @@ DEBUG = env('DEBUG')
 ALLOWED_HOSTS = [".herokuapp.com"]
 
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+    ),
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly"
-    ]
+    ],
 }
 
 # Application definition
@@ -51,8 +54,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'questions',
     
     

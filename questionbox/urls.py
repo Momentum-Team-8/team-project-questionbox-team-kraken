@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework.urlpatterns import format_suffix_patterns
 from questions import views
 
 urlpatterns = [
@@ -31,10 +30,7 @@ urlpatterns = [
     path('answers/create/', views.answerCreate, name='answer-create'),
     path('tags/', views.tagList, name='tag-list'),
     path('tags/<int:pk>/', views.tagDetail, name='tag-detail'),
-    path('tags/create/', views.tagCreate, name='tag-create')
-
-
+    path('tags/create/', views.tagCreate, name='tag-create'),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
 ]
-
-
-urlpatterns = format_suffix_patterns(urlpatterns)
