@@ -20,7 +20,7 @@ def questionDetail(request, pk):
 
 @api_view(['POST'])
 def questionCreate(request):
-    serializer = QuestionSerializer(data=request.data)
+    serializer = QuestionSerializer()
     
     if serializer.is_valid():
         serializer.save()
