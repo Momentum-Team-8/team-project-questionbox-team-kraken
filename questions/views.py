@@ -29,7 +29,7 @@ def questionCreate(request):#save logged user in request
     
     return Response(serializer.data)
 
-@api_view(['POST'])
+@api_view(['PUT'])
 def questionEdit(request, pk):
     question = Question.objects.get(id=pk)
     serializer = QuestionSerializer(instance=question, data=request.data)

@@ -20,6 +20,8 @@ from questions import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include ('rest_framework.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
     path('questions/', views.questionList, name='question-list'),
     path('questions/<int:pk>/', views.questionDetail, name='question-detail'),
     path('questions/create/', views.questionCreate, name='question-create'),
@@ -31,6 +33,4 @@ urlpatterns = [
     path('tags/', views.tagList, name='tag-list'),
     path('tags/<int:pk>/', views.tagDetail, name='tag-detail'),
     path('tags/create/', views.tagCreate, name='tag-create'),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
 ]
