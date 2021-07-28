@@ -1,9 +1,9 @@
 from .models import Question, Answer, Tag, User
 from .serializers import QuestionSerializer, AnswerSerializer, UserSerializer, TagSerializer
 from rest_framework import status
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 
 from questions import serializers
 # from .serializers import 
@@ -21,6 +21,7 @@ def questionDetail(request, pk):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes(IsAuthenticatedOrReadOnly)
 def questionCreate(request):#save logged user in request
     serializer = QuestionSerializer(data=request.data)
     
@@ -40,11 +41,14 @@ def questionEdit(request, pk):
     return Response(serializer.data)
 
 @api_view(['DELETE'])
+@permission_classes(IsAuthenticated)
 def questionDelete(request, pk):
     question = Question.objects.get(id=pk)
-    question.delete()
+    user = User.objects.get(id=pk)
+    if question == user:
+        question.delete()
 
-    return Response('Your question has been deleted.')
+        return Response('Your question has been deleted.')
 
 @api_view(['GET'])
 def answerList(request):
@@ -59,10 +63,11 @@ def answerDetail(request, pk):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes(IsAuthenticatedOrReadOnly)
 def answerCreate(request):
     serializer = AnswerSerializer(data=request.data)
     question=Question.objects.get(id=request.data["question"])
-    
+
     if serializer.is_valid():
         serializer.save(user=request.user, question=question)
     
