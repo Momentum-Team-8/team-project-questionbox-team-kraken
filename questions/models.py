@@ -12,6 +12,7 @@ class User(AbstractUser):
 
 
 class Question(models.Model):
+    title = models.TextField(max_length=250)
     question = models.TextField()
     user = models.ForeignKey(User, on_delete=CASCADE, related_name='question_user')
     created_at = models.DateField(auto_now_add=True)
