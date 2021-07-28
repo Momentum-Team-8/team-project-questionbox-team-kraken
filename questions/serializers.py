@@ -9,6 +9,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class QuestionSerializer(serializers.ModelSerializer):
+    answers = "AnswerSerializer"(many=True, read_only=True)
+    tags = "TagSerializer"(many=True, read_only=True)
     class Meta:
         model = Question
         fields = ['question', 'user', 'created_at', 'favorited_by', 'tag']
