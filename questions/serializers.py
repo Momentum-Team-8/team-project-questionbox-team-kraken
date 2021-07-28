@@ -17,8 +17,8 @@ class QuestionSerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = ['answer', 'user', 'created_at', 'accepted', 'favorited']
-        read_only_fields = ['user', 'created_at', 'accepted']
+        fields = ['answer', 'user', 'created_at', 'accepted', 'favorited', 'question']
+        read_only_fields = ['user', 'created_at', 'accepted', 'question']
 
 
 class TagSerializer(serializers.ModelSerializer):
