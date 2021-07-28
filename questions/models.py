@@ -23,8 +23,8 @@ class Answer(models.Model):
     answer = models.TextField()
     user = models.ForeignKey(User, on_delete=CASCADE, related_name='answer_user')
     created_at = models.DateField(auto_now_add=True)
-    accepted = models.BooleanField()
-    favorited = models.BooleanField()
+    accepted = models.BooleanField(null=True, blank=True)
+    favorited = models.BooleanField(null=True, blank=True)
     question = models.ForeignKey(Question, on_delete=CASCADE)
     
 

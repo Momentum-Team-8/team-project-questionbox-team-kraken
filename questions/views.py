@@ -61,9 +61,10 @@ def answerDetail(request, pk):
 @api_view(['POST'])
 def answerCreate(request):
     serializer = AnswerSerializer(data=request.data)
+    question=Question.objects.get(id=request.data["question"])
     
     if serializer.is_valid():
-        serializer.save(user=request.user)
+        serializer.save(user=request.user, question=question)
     
     return Response(serializer.data)
 
