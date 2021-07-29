@@ -41,7 +41,7 @@ def questionEdit(request, pk):
 
 @api_view(['DELETE'])
 def questionDelete(request, pk):
-    question = Question.objects.get(pk=request.pk)
+    question = Question.objects.get(id=pk)
     question.delete()
 
     return Response('Your question has been deleted.')
