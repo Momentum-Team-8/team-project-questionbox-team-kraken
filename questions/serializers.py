@@ -9,8 +9,8 @@ class UserSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ['title','question', 'user', 'created_at', 'favorited_by', 'tag']
-        read_only_fields = ['user', 'created_at']
+        fields = ['title','question', 'user', 'created_at', 'favorited_by', 'tag', 'id']
+        read_only_fields = ['user', 'created_at', 'id']
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
